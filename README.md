@@ -14,8 +14,8 @@
 ## Install
 
 ```
-git clone https://github.com/klein0r/fhem-docker.git fhem-docker
-cd fhem-docker
+git clone https://github.com/frankiesoc/fhem-docker.git /volume1/Shared/docker/fhem-docker
+cd /volume1/Shared/docker/fhem-docker
 docker-compose up -d
 ```
 
@@ -24,7 +24,7 @@ docker-compose up -d
 
 ## Defaults
 
-- FHEM-WEB: 8083 (8084 and 8085 have been deleted)
+- FHEM-WEB: 8083 (8085 have been deleted)
 - mySQL-User: fhemuser
 - mySQL-Password: 2jRHnEi3WuNSQAcX7
 - Homekit-Pairing-Code: 012-34-567
