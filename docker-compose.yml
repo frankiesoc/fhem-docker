@@ -5,12 +5,23 @@ services:
         restart: always
         expose:
             - "8083"
+            - "8084"
+            - "8088"
+            - "9093"
             - "7072"
         ports:
             - "8083:8083"
+            - "8084:8084"
+            - "8088:8088"
+            - "9093:9093"
             - "7072:7072"
         build: fhem
         privileged: true
+        devices:
+            - "/dev/ttyAMC0:/dev/ttyAMC0"
+            - "/dev/ttyAMC1:/dev/ttyAMC1"
+            - "/dev/ttyAMC2:/dev/ttyAMC2"
+            - "/dev/ttyAMC3:/dev/ttyAMC3"
         volumes:
             - ./fhem/core/:/opt/fhem/
         networks:
@@ -40,9 +51,16 @@ services:
 
     habridge:
         restart: always
-        build: habridge
+        image: aptalca/home-automation-bridge:latest
         network_mode: host
-
+        ports:
+            - "8082:8082"
+        volumes:
+            - ./habridge/data/:/config/data
+        environment:
+            - SERVERIP=192.168.2.202
+            - SERVERPORT=8082
+            
     mysql:
         restart: always
         expose:
@@ -51,7 +69,7 @@ services:
         ports:
             - "3306:3306"
             - "33060:33060"
-        image: mysql/mysql-server:5.7
+        image: mysql/mysql-server:latest
         volumes:
             - ./mysql/init.sql:/docker-entrypoint-initdb.d/fhem-init.sql
             - ./mysql/data:/var/lib/mysql
@@ -68,7 +86,7 @@ services:
         ports:
             - "1883:1883"
             - "9001:9001"
-        image: toke/mosquitto
+        image: toke/mosquitto:latest
         networks:
             - fhem-network
         volumes:
@@ -82,7 +100,7 @@ services:
             - "1880"
         ports:
             - "1880:1880"
-        image: nodered/node-red-docker:0.17.5
+        image: nodered/node-red-docker:latest
         volumes:
             - ./nodered/data/:/data/
         networks:
