@@ -101,6 +101,7 @@ services:
         ports:
             - "1880:1880"
         image: nodered/node-red-docker:latest
+        user: "1000"
         volumes:
             - ./nodered/data/:/data/
         networks:
