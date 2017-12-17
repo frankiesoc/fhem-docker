@@ -22,6 +22,7 @@ sudo \
 telnet \
 usbutils \
 vim \
+mc \
 wget
 
 # Install perl packages
